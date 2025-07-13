@@ -549,12 +549,14 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
     if (buf_idx >= UART_BUF_SIZE) 
     {
         reset = true;
+        ESP_LOGD("hisense_ac", "Resetting RX buffer.");
     }
     else if (buf_idx == 1) // Search for frame start byte 1
     {
         if (input != 0xF4)
         {
             reset = true;
+            ESP_LOGD("hisense_ac", "Resetting RX buffer.");
         }
     }
     else if (buf_idx == 2) // Search for frame start byte 2
@@ -562,6 +564,7 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
         if (input != 0xF5)
         {
             reset = true;
+            ESP_LOGD("hisense_ac", "Resetting RX buffer.");
         }
     }
     else if (buf_idx == 3) // Search for message mode byte (1 = repsonse)
@@ -569,6 +572,7 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
         if (input != 0x01)
         {
             reset = true;
+            ESP_LOGD("hisense_ac", "Resetting RX buffer.");
         }
     }
     else if (buf_idx == 4) // Search for message type (we only handle 0x40)
@@ -595,6 +599,7 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
                 checksum,
                 rxd_checksum);
             reset = true;
+            ESP_LOGD("hisense_ac", "Resetting RX buffer.");
         }
     }
     else if (buf_idx == msg_size - 1) // second to last byte
@@ -602,6 +607,7 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
         if (input != 0xF4)
         {
             reset = true;
+            ESP_LOGD("hisense_ac", "Resetting RX buffer.");
         }
     }
     else if (buf_idx == msg_size) // last byte
@@ -609,6 +615,7 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
         if (input != 0xFB)
         {
             reset = true;
+            ESP_LOGD("hisense_ac", "Resetting RX buffer.");
         }
         else
         {
