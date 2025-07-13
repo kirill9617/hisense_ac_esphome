@@ -549,7 +549,7 @@ int HisenseAC::get_response(const uint8_t input, uint8_t *out)
     if (buf_idx >= UART_BUF_SIZE) 
     {
         reset = true;
-        ESP_LOGD("hisense_ac", "Resetting RX buffer.");
+        ESP_LOGD("hisense_ac", "Resetting RX buffer. %d >= %d",buf_idx, UART_BUF_SIZE);
     }
     else if (buf_idx == 1) // Search for frame start byte 1
     {
